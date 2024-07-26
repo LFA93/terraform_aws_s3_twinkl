@@ -1,7 +1,7 @@
 module "s3_twinkl" {
 # Thanks for enlightening me on for_each on modules Leigh :D 
   for_each = var.environment
-  source = "../terraform_aws_s3_twinkl"
+  source = "github.com/LFA93/terraform_aws_s3_twinkl"
   region = var.region  
   environment = each.key
   tags = var.tags

@@ -4,8 +4,8 @@ variable "region" {
 }
 
 variable "environment" {
-  description = "The list of the environments to deploy the 4 unique buckets to"
-  type        = list
+  description = "one of the environments to deploy the 4 unique buckets to"
+  type        = string
 }
 
 variable "tags" {

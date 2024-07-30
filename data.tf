@@ -1,10 +1,10 @@
 # pull the s3 role arn
-data "aws_iam_role" "s3_role" {
-  name = var.role_name
+data "aws_iam_group" "s3_role" {
+  group_name = var.role_name
 }
 
-data "aws_iam_role" "admin_role" {
-  name = var.admin_role
+data "aws_iam_group" "admin_role" {
+  group_name = var.admin_role
 }
 
 /*
@@ -30,11 +30,15 @@ data "aws_iam_policy_document" "bucketAB" {
       "${aws_s3_bucket.bucketAB[each.key].arn}"
     ]
     # you can't seem to write a NotPrincipal statement in terraform annoyingly so using a condition instead
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "StringNotEquals"
       variable = "aws:PrincipalArn"
       values   = [
-        data.aws_iam_role.role.arn
+        data.aws_iam_group.s3_role.arn
       ]
     }
   }
@@ -49,6 +53,10 @@ data "aws_iam_policy_document" "bucketAB" {
       "${aws_s3_bucket.bucketAB[each.key].arn}/*",
       "${aws_s3_bucket.bucketAB[each.key].arn}"
     ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "NumericLessThan"
       variable = "s3:TlsVersion"
@@ -72,11 +80,15 @@ data "aws_iam_policy_document" "bucketAB" {
       "${aws_s3_bucket.bucketAB[each.key].arn}/*",
       "${aws_s3_bucket.bucketAB[each.key].arn}"
     ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "StringNotEquals"
       variable = "aws:PrincipalArn"
       values   = [
-        data.aws_iam_role.admin_role.arn
+        data.aws_iam_group.admin_role.arn
       ]
     }
   }
@@ -97,11 +109,15 @@ data "aws_iam_policy_document" "bucketC" {
       "${aws_s3_bucket.bucketC.arn}/*",
       "${aws_s3_bucket.bucketC.arn}"
     ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "StringNotEquals"
       variable = "aws:PrincipalArn"
       values   = [
-        data.aws_iam_role.role.arn
+        data.aws_iam_group.s3_role.arn
       ]
     }
   }
@@ -116,6 +132,10 @@ data "aws_iam_policy_document" "bucketC" {
       "${aws_s3_bucket.bucketC.arn}/*",
       "${aws_s3_bucket.bucketC.arn}"
     ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "StringNotEquals"
       variable = "s3:x-amz-server-side-encryption"
@@ -139,11 +159,15 @@ data "aws_iam_policy_document" "bucketC" {
       "${aws_s3_bucket.bucketC.arn}/*",
       "${aws_s3_bucket.bucketC.arn}"
     ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "StringNotEquals"
       variable = "aws:PrincipalArn"
       values   = [
-        data.aws_iam_role.admin_role.arn
+        data.aws_iam_group.admin_role.arn
       ]
     }
   }
@@ -164,11 +188,15 @@ data "aws_iam_policy_document" "bucketD" {
       "${aws_s3_bucket.bucketD.arn}/*",
       "${aws_s3_bucket.bucketD.arn}"
     ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "StringNotEquals"
       variable = "aws:PrincipalArn"
       values   = [
-        data.aws_iam_role.role.arn
+        data.aws_iam_group.s3_role.arn
       ]
     }
   }
@@ -187,11 +215,15 @@ data "aws_iam_policy_document" "bucketD" {
       "${aws_s3_bucket.bucketD.arn}/*",
       "${aws_s3_bucket.bucketD.arn}"
     ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     condition {
       test     = "StringNotEquals"
       variable = "aws:PrincipalArn"
       values   = [
-        data.aws_iam_role.admin_role.arn
+        data.aws_iam_group.admin_role.arn
       ]
     }
   }

@@ -3,7 +3,7 @@
 ############################################
 # create the buckets
 resource "aws_s3_bucket" "bucketAB" {
-  for_each = toset(["A", "B"])
+  for_each = toset(["a", "b"])
   bucket   = "${var.bucket_prefix}${var.environment}${each.key}"
 
   tags     = merge(var.tags, {
@@ -37,10 +37,10 @@ resource "aws_s3_bucket_policy" "bucketAB" {
 ############################################
 # create the bucket
 resource "aws_s3_bucket" "bucketC" {
-  bucket = "${var.bucket_prefix}${var.environment}C"
+  bucket = "${var.bucket_prefix}${var.environment}c"
 
   tags   = merge(var.tags, {
-    Name            = "${var.bucket_prefix}${var.environment}C"
+    Name            = "${var.bucket_prefix}${var.environment}c"
     Environment     = "${var.environment}"
     Lifecycle       = "0"
     KMSEncrypted    = "true"
@@ -84,10 +84,10 @@ resource "aws_s3_bucket_policy" "bucketC" {
 ############################################
 # create the bucket
 resource "aws_s3_bucket" "bucketD" {
-  bucket = "${var.bucket_prefix}${var.environment}D"
+  bucket = "${var.bucket_prefix}${var.environment}d"
 
   tags   = merge(var.tags, {
-    Name            = "${var.bucket_prefix}${var.environment}D"
+    Name            = "${var.bucket_prefix}${var.environment}d"
     Environment     = "${var.environment}"
     Lifecycle       = "48"
     KMSEncrypted    = "false"

@@ -46,12 +46,13 @@ variable "index_file" {
   default     = "index.html"
 }
 
-# this could be role name 
+# the role to use to get/put objects in the buckets
 variable "role_name" {
   description = "The name of the role use the buckets"
   type        = string
 }
 
+# the role who can view and edit the policies
 variable "admin_role" {
   description = "the name of a admin role to view and edit policies"
   type        = string
